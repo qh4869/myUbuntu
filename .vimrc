@@ -84,7 +84,7 @@ endfunc
 set mouse=a
 
 "----------------YCM配置-------------------------
-"新版YCM总是提示找不到配置文件，默认的文件位置和老板不一样
+"新版YCM总是提示找不到配置文件，默认的文件位置和老版不一样
 let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
 
 "----------------NERDTREE配置--------------------
