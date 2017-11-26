@@ -112,7 +112,7 @@ autocmd vimenter * NERDTree
 autocmd VimEnter * wincmd w
 
 "===================需要下载文件===============
-"python 自动补齐pydiction of github
+"python 自动补齐pydiction of github(有YCM就不需要安装了)
 "路径根据github上的说明去放置
 filetype plugin on
 let g:pydiction_location = '~/.vim/bundle/pydiction/complete-dict'
