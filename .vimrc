@@ -13,10 +13,10 @@ call vundle#begin()
 " ---------------安装插件写在这之后----------------------------------------
 " plugin需要在进入vim后执行PluginInstall,bundle需要执行BundleInstall
 Plugin 'VundleVim/Vundle.vim'
-Plugin 'Valloric/YouCompleteMe' " 大约需要一个小时;或者自己从github上下载，install时候还会提示一个命令下载submodule
+Plugin 'Valloric/YouCompleteMe' " 自动补全，自己从github上下载比较好，install时候还会提示一个命令下载submodule
 "Bundle "scrooloose/syntastic"
 Plugin 'scrooloose/nerdtree'
-Plugin 'w0rp/ale'
+Plugin 'w0rp/ale' " 语法检查
 
 " ---------------安装插件写在这之前----------------------------------------
 call vundle#end()            " required
@@ -45,6 +45,9 @@ syntax on
 "set smartindent
 set pastetoggle=<F9> " 多行粘贴使用的模式，不然缩进会出现问题
 set nu
+" tab -> 4 space
+set ts=4
+set expandtab
 
 "颜色
 set background=dark
@@ -106,15 +109,31 @@ autocmd vimenter * if !argc()|NERDTree|endif
 ""当NERDTree为剩下的唯一窗口时自动关闭
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
  "设置打开vim的时候默认打开目录树
-"let g:nerdtree_tabs_open_on_console_startup=1    
-autocmd vimenter * NERDTree
+let g:nerdtree_tabs_open_on_console_startup=0    
+"autocmd vimenter * NERDTree
 "wincmd w
-autocmd VimEnter * wincmd w
+"autocmd VimEnter * wincmd w
 
-"===================需要下载文件===============
-"python 自动补齐pydiction of github(有YCM就不需要安装了)
-"路径根据github上的说明去放置
-filetype plugin on
-let g:pydiction_location = '~/.vim/bundle/pydiction/complete-dict'
-let g:pydiction_menu_height = 3 "size
-
+"=============ale配置================================
+"ale
+" Enable completion where available.
+"let g:ale_completion_enabled = 1
+"始终开启标志列
+let g:ale_sign_column_always = 1
+let g:ale_set_highlights = 0
+"自定义error和warning图标
+let g:ale_sign_error = '>>'
+let g:ale_sign_warning = '--'
+"在vim自带的状态栏中整合ale
+let g:ale_statusline_format = ['✗ %d', '⚡ %d', '✔ OK']
+"显示Linter名称,出错或警告等相关信息
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+"普通模式下，sp前往上一个错误或警告，sn前往下一个错误或警告
+"nmap sp <Plug>(ale_previous_wrap)
+"nmap sn <Plug>(ale_next_wrap)
+"<Leader>s触发/关闭语法检查
+nmap <Leader>s :ALEToggle<CR>
+"<Leader>d查看错误或警告的详细信息
+nmap <Leader>d :ALEDetail<CR>
