@@ -2,6 +2,10 @@ set nocompatible              " be iMproved, required
 set backspace=2		      " 简易版本vim要有这句话，不然不能backspace
 filetype off                  " required
 
+" 文件编码
+let &termencoding=&encoding
+set fileencodings=utf-8,gbk,ucs-born,cp936
+
 " 启用vundle来管理vim插件,ref:http://www.jianshu.com/p/8d416ac4ad11
 " 使用Vundle来管理插件
 " vim plugin bundle control, command model
@@ -16,7 +20,7 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'Valloric/YouCompleteMe' " 自动补全，自己从github上下载比较好，install时候还会提示一个命令下载submodule
 "Bundle "scrooloose/syntastic"
 Plugin 'scrooloose/nerdtree'
-Plugin 'w0rp/ale' " 语法检查
+"Plugin 'w0rp/ale' " 语法检查
 
 " ---------------安装插件写在这之前----------------------------------------
 call vundle#end()            " required
@@ -36,12 +40,17 @@ filetype plugin on    " required
 "语法高亮
 syntax enable
 syntax on
+"高亮搜索
+set hlsearch
+
+"状态栏,显示当前的模式
+set laststatus=2
 
 "缩进
 "set autoindent
 "set softtabstop=4
 "set tabstop=4
-"set shiftwidth=4
+set shiftwidth=4
 "set smartindent
 set pastetoggle=<F9> " 多行粘贴使用的模式，不然缩进会出现问题
 set nu
@@ -88,7 +97,14 @@ set mouse=a
 
 "----------------YCM配置-------------------------
 "新版YCM总是提示找不到配置文件，默认的文件位置和老版不一样
-let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
+"let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py' "原路径
+let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py' " 复制路径,不要写~路径，好像不识别
+let g:ycm_enable_diagnostic_signs = 1
+let g:ycm_enable_diagnostic_highlighting = 0
+let g:ycm_autoclose_preview_window_after_completion = 1 "补全后关闭preview
+let g:ycm_complete_in_strings = 1 "字符串中也补全
+let g:ycm_complete_in_comments = 1 "注释中也补全
+let g:ycm_seed_identifiers_with_syntax = 1 "语法关键词补全
 
 "----------------NERDTREE配置--------------------
 ""将F2设置为开关NERDTree的快捷键
@@ -120,7 +136,7 @@ let g:nerdtree_tabs_open_on_console_startup=0
 "let g:ale_completion_enabled = 1
 "始终开启标志列
 let g:ale_sign_column_always = 1
-let g:ale_set_highlights = 0
+let g:ale_set_highlights = 0 
 "自定义error和warning图标
 let g:ale_sign_error = '>>'
 let g:ale_sign_warning = '--'
@@ -134,6 +150,6 @@ let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 "nmap sp <Plug>(ale_previous_wrap)
 "nmap sn <Plug>(ale_next_wrap)
 "<Leader>s触发/关闭语法检查
-nmap <Leader>s :ALEToggle<CR>
+"nmap <Leader>s :ALEToggle<CR>
 "<Leader>d查看错误或警告的详细信息
-nmap <Leader>d :ALEDetail<CR>
+"nmap <Leader>d :ALEDetail<CR>
