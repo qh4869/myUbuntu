@@ -130,26 +130,33 @@ let g:nerdtree_tabs_open_on_console_startup=0
 "wincmd w
 "autocmd VimEnter * wincmd w
 
-"=============ale配置================================
-"ale
-" Enable completion where available.
-"let g:ale_completion_enabled = 1
-"始终开启标志列
-let g:ale_sign_column_always = 1
-let g:ale_set_highlights = 0 
-"自定义error和warning图标
-let g:ale_sign_error = '>>'
-let g:ale_sign_warning = '--'
-"在vim自带的状态栏中整合ale
-let g:ale_statusline_format = ['✗ %d', '⚡ %d', '✔ OK']
-"显示Linter名称,出错或警告等相关信息
-let g:ale_echo_msg_error_str = 'E'
-let g:ale_echo_msg_warning_str = 'W'
-let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-"普通模式下，sp前往上一个错误或警告，sn前往下一个错误或警告
-"nmap sp <Plug>(ale_previous_wrap)
-"nmap sn <Plug>(ale_next_wrap)
-"<Leader>s触发/关闭语法检查
-"nmap <Leader>s :ALEToggle<CR>
-"<Leader>d查看错误或警告的详细信息
-"nmap <Leader>d :ALEDetail<CR>
+""=============ale配置================================
+""ale
+"" Enable completion where available.
+""let g:ale_completion_enabled = 1
+""始终开启标志列
+"let g:ale_sign_column_always = 1
+"let g:ale_set_highlights = 0 
+""自定义error和warning图标
+"let g:ale_sign_error = '>>'
+"let g:ale_sign_warning = '--'
+""在vim自带的状态栏中整合ale
+"let g:ale_statusline_format = ['✗ %d', '⚡ %d', '✔ OK']
+""显示Linter名称,出错或警告等相关信息
+"let g:ale_echo_msg_error_str = 'E'
+"let g:ale_echo_msg_warning_str = 'W'
+"let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+""普通模式下，sp前往上一个错误或警告，sn前往下一个错误或警告
+""nmap sp <Plug>(ale_previous_wrap)
+""nmap sn <Plug>(ale_next_wrap)
+""<Leader>s触发/关闭语法检查
+""nmap <Leader>s :ALEToggle<CR>
+""<Leader>d查看错误或警告的详细信息
+""nmap <Leader>d :ALEDetail<CR>
+
+"=============ctags配置=============================
+"用户追溯函数定义ctrl + ]
+"需要先在linux上安装ctags,然后在工程目录ctags-R,
+"生成tags文件，可能还需要加入exclude或者ignore
+"vim自带跳转到上次推出vim时的光标位置ctrl+o 恢复ctrl+i
+set tags+=~/sdk-gcc/tags
