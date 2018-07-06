@@ -1,4 +1,4 @@
-# some configuration file in my Ubuntu
+# some configuration files in my Ubuntu
 * .gdbinit  gdb配置，用户主目录
 * .tmux.conf    tmux配置，用户主目录
 * .vimrc    vim配置，用户主目录
