@@ -1,0 +1,27 @@
+#!/bin/sh -e
+#
+# rc.local
+#
+# This script is executed at the end of each multiuser runlevel.
+# Make sure that the script will "exit 0" on success or any other
+# value on error.
+#
+# In order to enable or disable this script just change the execution
+# bits.
+#
+# By default this script does nothing.
+
+# NAT共享网络
+echo 1 > /proc/sys/net/ipv4/ip_forward
+ifconfig ens33:1 192.168.1.199 netmask 255.255.255.0
+iptables -F
+iptables -F -t nat
+iptables -P FORWARD DROP
+iptables -A FORWARD -s 192.168.1.199/24 -j ACCEPT
+iptables -A FORWARD -i ens33 -m state --state ESTABLISHED,RELATED -j ACCEPT
+iptables -t nat -A POSTROUTING -o ens33 -s 192.168.1.199/24 -j SNAT --to 124.16.71.185
+
+# ss服务器开启
+/home/qh/.local/bin/ssserver  -c /etc/shadowsocks/config.json -d start --prefer ipv6 > /tmp/rc.log 2>&1
+
+exit 0
