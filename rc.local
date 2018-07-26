@@ -12,7 +12,7 @@
 # By default this script does nothing.
 
 #获取本机IP地址
-ipaddr=$(ifconfig ens33 |grep "inet addr"| cut -f 2 -d ":"|cut -f 1 -d " ")
+ipaddr=$(ifconfig ens33 |grep "inet " | cut -d ' ' -f 10)
 
 # iptables初始化
 echo 1 > /proc/sys/net/ipv4/ip_forward
@@ -21,15 +21,15 @@ iptables -P FORWARD DROP
 iptables -A FORWARD -i ens33 -m state --state ESTABLISHED,RELATED -j ACCEPT
 
 # NAT共享网络(流出)
-ifconfig ens33:1 192.168.1.199 netmask 255.255.255.0
-iptables -t nat -A POSTROUTING -o ens33 -s 192.168.1.199/24 -j SNAT --to $ipaddr
-iptables -A FORWARD -s 192.168.1.199/24 -j ACCEPT
+ifconfig ens33:1 172.24.1.200 netmask 255.255.0.0
+iptables -t nat -A POSTROUTING -o ens33 -s 172.24.1.199/16 -j SNAT --to $ipaddr
+iptables -A FORWARD -s 172.24.1.199/16 -j ACCEPT
 
 # NAT远程桌面端口映射(流入)
-iptables -t nat -A PREROUTING -d $ipaddr -p tcp --dport 3389 -j DNAT --to-destination 192.168.1.200:3389 
-iptables -A FORWARD -d 192.168.1.200 -p tcp --dport 3389 -j ACCEPT
+iptables -t nat -A PREROUTING -d $ipaddr -p tcp --dport 3389 -j DNAT --to-destination 172.24.1.199:3389 
+iptables -A FORWARD -d 172.24.1.199 -p tcp --dport 3389 -j ACCEPT
 
 # ss服务器开启
-/home/qh/.local/bin/ssserver -c /etc/shadowsocks/config.json --prefer-ipv6 -d start > /tmp/rc.log 2>&1
+/usr/local/bin/ssserver -c /etc/shadowsocks/config.json --prefer-ipv6 -d start > /tmp/rc.log 2>&1
 
 exit 0
