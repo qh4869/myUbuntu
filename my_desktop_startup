@@ -1,2 +1,7 @@
 #!/bin/sh
 sleep 6 && tilda
+
+# 先添加执行权限
+# app中startup中添加脚本执行./XX，
+# 不知道为什么Ubuntu16.04LTS中，直接输入命令不执行
+# 所以只能使用脚本的方式
