@@ -1,6 +1,16 @@
 #!/bin/sh
 sleep 6 && tilda
 
+#!/bin/sh
+sleep 6
+tilda &
+
+name=DESKTOP-6UJSKET
+a=$(ping -c 1 -W 2 $name |grep data)
+b=${a%%)*}
+c=${b#*(}
+synergyc $c >/tmp/qh.log 2>&1
+
 # 先添加执行权限
 # app中startup中添加脚本执行./XX，
 # 不知道为什么Ubuntu16.04LTS中，直接输入命令不执行
