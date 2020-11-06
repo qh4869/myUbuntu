@@ -1,0 +1,10 @@
+{
+    "server":["[::0]","0.0.0.0"],
+    "nameserver":"8.8.8.8",
+    "server_port":443,
+    "password":"happyDay",
+    "method":"aes-256-gcm",
+    "timeout":600,
+    "no_delay":true,
+    "mode":"tcp_and_udp",
+}
