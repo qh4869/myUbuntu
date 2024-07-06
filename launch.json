@@ -1,0 +1,20 @@
+{
+    "configurations": [
+        {
+            "name": "lldb",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/main",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${fileDirname}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "lldb",
+            "preLaunchTask": "build",
+            // gdb安装python可以把容器内容显示更清楚, 有个beauty参数
+        }
+    ]
+}
+// 直接点击run & debug，下面的生成config，选择一个自己改就可以，添加build任务
+// 最初没有build任务，会提示找不到该任务，会建议创建一个，也在模板上改就可以.
