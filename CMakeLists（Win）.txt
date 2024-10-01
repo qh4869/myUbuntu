@@ -24,3 +24,5 @@ set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR})
 add_executable(main ${AllSrcFile})
 
 # 运行：cmake -G "MinGW Makefiles" .，参数表示win上先生成Makefile而不是用默认的nMake
+# 然后make命令
+# 删除cmake缓存的bat脚本见同目录，不能写进make的自定义命令里（自己删除自己可能会报错）
