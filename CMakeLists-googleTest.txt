@@ -1,0 +1,60 @@
+# 主要是参考google Test的例子（下方的链接可能更新），主要流程如下
+
+# CMake 最低版本号要求
+cmake_minimum_required(VERSION 3.14)
+
+# 项目信息
+project(MYPROJECT)
+
+# GoogleTest requires at least C++14
+set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+include(FetchContent)
+FetchContent_Declare(
+  googletest
+  URL https://github.com/google/googletest/archive/03597a01ee50ed33e9dfd640b249b4be3799d395.zip
+)
+# For Windows: Prevent overriding the parent project's compiler/linker settings
+set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+FetchContent_MakeAvailable(googletest)
+enable_testing()
+
+# include路径, 即头文件路径
+include_directories(${PROJECT_SOURCE_DIR}/src)
+include(GoogleTest)
+
+# 生成debug or release版本
+SET(CMAKE_BUILD_TYPE "release")
+if (CMAKE_BUILD_TYPE STREQUAL debug)
+    add_definitions(-D_DEBUG)
+endif ()
+SET(CMAKE_CXX_FLAGS_DEBUG "$ENV{CXXFLAGS} -Wall -g -ggdb -std=c++14")
+SET(CMAKE_CXX_FLAGS_RELEASE "$ENV{CXXFLAGS} -Wall -std=c++14")
+
+# 把所有的源文件统计到变量AllSrcFile中
+aux_source_directory(src AllSrcFile)
+set(TestHello ${AllSrcFile} test/hello_test.cc)
+set(TestAdd ${AllSrcFile} test/new_add.cc)
+
+set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/out)
+add_executable(hello_test ${TestHello})
+add_executable(add_test ${TestAdd})
+
+target_link_libraries(
+    hello_test
+    GTest::gtest_main
+)
+
+target_link_libraries(
+    add_test
+    GTest::gtest_main
+)
+
+# 如果使用ctest工具（批量运行case），在build目录运行
+add_test(NAME hello_test COMMAND hello_test)
+add_test(NAME add_test COMMAND add_test)
+
+# # 运行：cmake -G "MinGW Makefiles" .，参数表示win上先生成Makefile而不是用默认的nMake
+# # 然后make命令
+# # 删除cmake缓存的bat脚本见同目录，不能写进make的自定义命令里（自己删除自己可能会报错）
