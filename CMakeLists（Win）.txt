@@ -16,10 +16,10 @@ SET(CMAKE_CXX_FLAGS_DEBUG "$ENV{CXXFLAGS} -Wall -g -ggdb -std=c++14")
 SET(CMAKE_CXX_FLAGS_RELEASE "$ENV{CXXFLAGS} -Wall -std=c++14")
 
 # 把所有的源文件统计到变量AllSrcFile中
-aux_source_directory(${PROJECT_SOURCE_DIR} AllSrcFile)
+aux_source_directory(${PROJECT_SOURCE_DIR} AllSrcFile) # 把目录下的源文件加到这个变量
 
 # 设置可执行文件生成路径
-set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR})
+set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}) # 单纯设置变量
 # 指定生成目标
 add_executable(main ${AllSrcFile})
 
